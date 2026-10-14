@@ -20,6 +20,10 @@ obj-y				+= dump_area.o
 obj-y				+= dump_notifer.o
 obj-y                           += dump_ko.o
 obj-y                           += dump_field_strategy.o
+# dump_mdmap_subsys_exc_stub_init() is referenced unconditionally by
+# g_modem_drv_module_init_func[] and is part of the module object list, so it
+# must also be compiled into the built-in image.
+obj-y                           += mdmap_subsys_exc_stub.o
 
 GCOV_PROFILE := y
 GCOV_PROFILE_dump_ko.o := n

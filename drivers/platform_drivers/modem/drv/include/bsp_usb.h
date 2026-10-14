@@ -77,8 +77,11 @@
 typedef void (*usb_modem_msc_read_cb)(struct modem_msc_stru *modem_msc);
 typedef void (*acm_modem_switch_mode_cb)(void);
 
+#ifndef USB_ENABLE_CB_T_DEFINED
+#define USB_ENABLE_CB_T_DEFINED
 typedef void (*USB_ENABLE_CB_T)(void);
 typedef void (*USB_DISABLE_CB_T)(void);
+#endif
 
 /**
  * @brief 注册usb枚举完成回调

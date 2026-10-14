@@ -20,6 +20,103 @@ subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/product/$(OBB_PR
 subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/product/$(OBB_PRODUCT_NAME)/product/$(CUST_NAME)/define/common/drv/
 subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/product/$(OBB_PRODUCT_NAME)/product/$(CUST_NAME)/define/common/version_pub/
 
+# ---------------------------------------------------------------------------
+# Search paths shared by the module (=m) and built-in (=y) modem builds.
+#
+# Historically only the module branch (drv/makefile_soc_modem.mk) defined these,
+# so CONFIG_MODEM_DRIVER=y failed to find headers such as mdrv_bmi_print.h
+# (include/bmi/acore/kernel).  Define them here so both builds search the same
+# places; adding an -I twice is harmless.
+# ---------------------------------------------------------------------------
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/platform/ccore/$(CFG_PLATFORM)/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/platform/dsp/$(CFG_PLATFORM)/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/platform/acore/$(CFG_PLATFORM)/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/platform/acore/$(CFG_PLATFORM)/drv/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/platform/common/$(CFG_PLATFORM)/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/platform/common/$(CFG_PLATFORM)/soc/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/drv/common/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/common/include/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/tl/drv/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/tl/oam/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/tl/lps/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/acore/sys/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/acore/drv/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/acore/pam/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/acore/guc_as/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/common/pam/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/common/guc_as/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/common/guc_nas/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/nv/common/tl_as
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/phy/lphy/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/config/nvim/include/gu/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/taf/common/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/taf/acore/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/config/product/$(OBB_PRODUCT_NAME)/$(OBB_MODEM_CUST_CONFIG_DIR)/config
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/rtc
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/mem \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/memory
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/memory_layout
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/om \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/om/common \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/om/dump \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/om/log
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/udi
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/timer
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/nmi
+subdir-ccflags-y += -I$(srctree)/drivers/usb/gadget
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/tools
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/bmi/acore/kernel
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/include/bmi/acore/user/kernel
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/tzdriver
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/dt/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/dt/fdt/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/msg
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/fipc
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/pinctrl
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/diag/ \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/diag/msgserver \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/diag/srvchan
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/omserver/omp \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/omserver/hdlc
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/omserver/mprobe
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/dump \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/dump/logs \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/dump/mdmap
+ifeq ($(strip $(CFG_CONFIG_DUMP_PLATFORM_V100)),YES)
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/dump/hal/v100
+endif
+ifeq ($(strip $(CFG_CONFIG_DUMP_PLATFORM_V200)),YES)
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/dump/hal/v200
+endif
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/pfa/core \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/pfa/hal/common \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/pfa/entry \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/pfa/tft \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/pfa/wan \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/pfa/dbg \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/pfa/modem_reset \
+                    -I$(srctree)/drivers/platform_drivers/modem/drv/pfa/app_if
+ifeq ($(strip $(CFG_CONFIG_PFA_V100)),YES)
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/pfa/hal/v100
+else
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/pfa/hal/v0
+endif
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/odt/core/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/odt/debug/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/odt/hal/common/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/odt/hal/v300/
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/sys_bus/intf
+subdir-ccflags-y += -I$(srctree)/drivers/platform_drivers/modem/drv/sys_bus/test
+
+# gen uuid
+subdir-ccflags-y += -DCURRENT_MODEM_IMAGE_ID=\"$(GBB_MODEM_IMAGEID)\"
+
+# Same warning relaxation the module branch uses; the built-in build otherwise
+# trips over -Werror on files that are only compiled in this configuration.
+subdir-ccflags-y += -Wno-unused-function
+subdir-ccflags-y += -Wno-typedef-redefinition
+subdir-ccflags-y += -Wno-undef
+
 ifeq ($(strip $(OBB_LLT_MDRV)),y)
 subdir-ccflags-y += -DDRV_BUILD_LLT
 endif

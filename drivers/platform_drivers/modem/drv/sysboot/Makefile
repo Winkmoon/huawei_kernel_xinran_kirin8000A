@@ -6,7 +6,7 @@ subdir-ccflags-y += 	-Idrivers/platform_drivers/tzdriver_hm
 
 obj-y			+= sysboot_para.o
 
-ifeq ($(strip $(BSP_CONFIG_PHONE_TYPE)), YES)
+ifeq ($(strip $(CFG_BSP_CONFIG_PHONE_TYPE)), YES)
 obj-y			+= sysboot_main.o
 obj-y			+= sysboot_load_modem_teeos.o
 obj-y			+= sysboot_sec_call.o

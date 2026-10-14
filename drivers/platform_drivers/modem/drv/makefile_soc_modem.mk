@@ -861,9 +861,13 @@ obj-y += wan_eth/
 
 obj-y += pfunc/
 
-ifeq ($(strip $(CFG_CONFIG_AP_QIC)),YES)
-drv-y   += busprobe/
-endif
+# noc_dump_register_init() is referenced by g_modem_drv_module_init_func[]
+# whenever CONFIG_AP_NOC is defined (busprobe/Makefile applies that guard), so
+# build it into the built-in image.  It used to be appended to drv-y, which the
+# built-in path never consumes, leaving the symbol undefined.
+obj-y += busprobe/
+
+obj-$(CONFIG_MODEM_VBAT) += vbat/vbat.o
 
 endif
 

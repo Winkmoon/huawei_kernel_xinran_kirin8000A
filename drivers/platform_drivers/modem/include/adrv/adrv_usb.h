@@ -50,8 +50,11 @@
 #ifndef ADRV_USB_H
 #define ADRV_USB_H
 
+#ifndef USB_ENABLE_CB_T_DEFINED
+#define USB_ENABLE_CB_T_DEFINED
 typedef void (*USB_ENABLE_CB_T)(void);
 typedef void (*USB_DISABLE_CB_T)(void);
+#endif
 
 /**
  * @brief 注册usb枚举完成回调

@@ -120,7 +120,12 @@ enum dump_avs_errno_e {
     DUMP_AVS_TASK_INIT_FAIL = -12,
 };
 
-__ro_after_init struct dump_avs_escape_cfg g_dump_avs_escape_cfg;
+/* Written at run time by the modem_init kthread (dump_avs_cfg_init() ->
+ * bsp_dt_property_read_u32_array(..., &g_dump_avs_escape_cfg.dts_cfg, ...)).
+ * With __ro_after_init the backing page is made read-only after init and that
+ * store faults ("write to read-only memory") once the driver is built into the
+ * kernel; module builds are unaffected.  Drop the annotation. */
+struct dump_avs_escape_cfg g_dump_avs_escape_cfg;
 const u32 g_dump_avs_chk_modid[] = { 0x1000, 0xc0000200 };
 u32 g_dump_avs_inited;
 struct semaphore g_dump_avs_task_sem;

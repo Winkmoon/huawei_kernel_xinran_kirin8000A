@@ -47,8 +47,12 @@ void mdrv_pfa_transfer_restart(void)
 EXPORT_SYMBOL(mdrv_pfa_enable_mac_to_ip);
 EXPORT_SYMBOL(mdrv_pfa_register_flow_cb);
 EXPORT_SYMBOL(mdrv_pfa_enable_pfa_pad);
-EXPORT_SYMBOL(mdrv_pfa_ipfw_del_by_dev);
-EXPORT_SYMBOL(mdrv_pfa_ipfw_del_by_tuple);
-EXPORT_SYMBOL(mdrv_pfa_ipfw_find_info_by_tuple);
+/*
+ * mdrv_pfa_ipfw_del_by_dev()/del_by_tuple()/find_info_by_tuple() are declared in
+ * mdrv_bmi_pfa.h but their implementations were not shipped in the open-source
+ * package.  Exporting them makes the ksymtab reference the missing definitions
+ * and vmlinux fails to link, so drop those exports.  The module build (=m) does
+ * not compile this file at all.
+ */
 EXPORT_SYMBOL(mdrv_pfa_transfer_pause);
 EXPORT_SYMBOL(mdrv_pfa_transfer_restart);
