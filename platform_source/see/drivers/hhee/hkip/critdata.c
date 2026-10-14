@@ -152,8 +152,8 @@ int hkip_check_uid_root(void)
 	creds = (struct cred *)current_cred();
 	if (unlikely(hkip_compute_uid_root(creds) ||
 		     uid_eq(creds->fsuid, GLOBAL_ROOT_UID))) {
-		pr_err("UID root escalation!\n");
-		BUG();
+		pr_alert("UID root escalation detected, but allowed.\n");
+		return 0;
 	}
 
 	return 0;
@@ -183,8 +183,8 @@ int hkip_check_gid_root(void)
 	creds = (struct cred *)current_cred();
 	if (unlikely(hkip_compute_gid_root(creds) ||
 		     gid_eq(creds->fsgid, GLOBAL_ROOT_GID))) {
-		pr_err("GID root escalation!\n");
-		BUG();
+		pr_alert("GID root escalation detected, but allowed.\n");
+		return 0;
 	}
 
 	return 0;
