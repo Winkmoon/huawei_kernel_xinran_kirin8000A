@@ -289,6 +289,15 @@ CLANG_PREBUILTS_PATH ?=
 endif
 endif
 
+# scripts/setlocalversion parses its extra arguments as the fixed pair
+# "[branch] [kmi-generation]". When BRANCH is not exported (e.g. a plain
+# "make" build, as documented in README_Kernel.txt), make collapses the empty
+# variable and the lone KMI_GENERATION is taken as the branch; the script then
+# complains about the missing kmi-generation and exits with a usage error.
+# That aborts the whole version calculation, so CONFIG_LOCALVERSION never makes
+# it into the release string. Pass the pair only when both are available.
+SETLOCALVERSION_ARGS = $(if $(and $(BRANCH),$(KMI_GENERATION)),$(BRANCH) $(KMI_GENERATION))
+
 ifdef CLANG_PREBUILTS_PATH
 CLANG_PREBUILT_BIN := $(CLANG_PREBUILTS_PATH)bin/
 export CLANG_PREBUILTS_PATH
@@ -1412,7 +1421,7 @@ $(sort $(vmlinux-deps) $(subdir-modorder)): descend ;
 
 filechk_kernel.release = \
 	echo "$(KERNELVERSION)$$($(CONFIG_SHELL) $(srctree)/scripts/setlocalversion \
-		$(srctree) $(BRANCH) $(KMI_GENERATION))"
+		$(srctree) $(SETLOCALVERSION_ARGS))"
 
 # Store (new) KERNELRELEASE string in include/config/kernel.release
 include/config/kernel.release: FORCE
@@ -2140,7 +2149,7 @@ checkstack:
 
 kernelrelease:
 	@echo "$(KERNELVERSION)$$($(CONFIG_SHELL) $(srctree)/scripts/setlocalversion \
-		$(srctree) $(BRANCH) $(KMI_GENERATION))"
+		$(srctree) $(SETLOCALVERSION_ARGS))"
 
 kernelversion:
 	@echo $(KERNELVERSION)
